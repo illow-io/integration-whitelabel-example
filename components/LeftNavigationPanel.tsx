@@ -1,4 +1,6 @@
 'use client'
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -39,17 +41,18 @@ const options = [
 ];
 
 export default function LeftNavigationPanel({ className }: { className?: string; }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(true);
   const ExpandIcon = open ? ChevronDoubleLeftIcon : ChevronDoubleRightIcon;
   return (
-    <div className={`flex flex-col border-r bg-gray-800 border-gray-600 ${open ? 'w-[201px]' : 'w-[60px]'} overflow-hidden transition-all duration-100 ease-out ${className}`}>
+    <div className={`flex flex-col border-r bg-gradient-to-b from-gray-800 to-gray-900 border-gray-600 ${open ? 'w-[201px]' : 'w-[60px]'} overflow-hidden transition-all duration-100 ease-out ${className}`}>
       <ul className="flex-1 space-y-5 w-[203px] p-5">
         {options.map((option) => (
           <li key={option.label}>
-            <a className="flex items-center justify-start flex-nowrap cursor-pointer text-sm text-white hover:text-primary-600" href={option.link}>
+            <Link className={`flex items-center justify-start flex-nowrap cursor-pointer text-sm hover:text-primary-600 ${pathname === option.link ? 'text-primary-600' : 'text-white'}`} href={option.link}>
               <option.icon className="w-5 h-5 shrink-0" aria-hidden="true" />
               <span className={`ml-3 transition-all ${open ? 'opacity-100' : 'opacity-0'}`}>{option.label}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
