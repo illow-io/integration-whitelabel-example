@@ -18,5 +18,6 @@ function Layout({
   );
 }
 
-// @ts-ignore
-export default withPageAuthRequired(Layout, { returnTo: '/api/auth/login' });
+// TS hack to workaround NextJS + Auth0 issue
+const layout = withPageAuthRequired(Layout as any, { returnTo: '/api/auth/login' });
+export default (layout as any);
