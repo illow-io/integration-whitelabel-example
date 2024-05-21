@@ -1,5 +1,4 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import Charts from '@/components/Charts';
 import LeftNavigationPanel from '@/components/LeftNavigationPanel';
 import TopBar from '@/components/TopBar';
 
