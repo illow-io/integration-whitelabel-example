@@ -6,9 +6,11 @@ import { revalidatePath } from 'next/cache';
 import { createTenant } from './illow';
 import { Tenant } from './definitions';
 
-const samlMetadataUrl = process.env.AUTH0_SAML_METADATAURL as string;
-const claimEmail = process.env.AUTH0_SAML_CLAIM_EMAIL as string;
-const claimName = process.env.AUTH0_SAML_CLAIM_EMAIL as string;
+const oidcClientId = process.env.AUTH0_CLIENT_ID as string;
+const oidcClientSecret = process.env.AUTH0_CLIENT_SECRET as string;
+const oidcIssuer = process.env.AUTH0_ISSUER_BASE_URL as string;
+const claimEmail = process.env.AUTH0_CLAIM_EMAIL as string;
+const claimName = process.env.AUTH0_CLAIM_NAME as string;
 
 const TenantCreationSchema = z.object({
   internalId: z.string(),
@@ -33,8 +35,10 @@ export async function enableCMP(internalId: string, email: string, formData: For
     domain: tenantCreation.domain,
     tenantMembers: [{ email: tenantCreation.email, role: 'admin' }], // this should have all tenant members
     sso: {
-      saml: {
-        metadataUrl: samlMetadataUrl,
+      oidc: {
+        clientId: oidcClientId,
+        clientSecret: oidcClientSecret,
+        issuer: oidcIssuer,
         claims: {
           mail: claimEmail,
           name: claimName,

@@ -1,15 +1,23 @@
-export interface SAMLClaims {
+export interface Claims {
   mail: string;
   name: string;
 }
 
 export interface SAML {
+  claims: Claims;
   metadataUrl: string;
-  claims: SAMLClaims;
+}
+
+export interface OIDC {
+  claims: Claims;
+  clientId: string;
+  clientSecret: string;
+  issuer: string;
 }
 
 export interface SSO {
-  saml: SAML;
+  saml?: SAML;
+  oidc?: OIDC;
 }
 
 export interface TenantMember {
