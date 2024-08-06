@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleTagManager } from '@next/third-parties/google'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 
 import "./css/globals.css";
@@ -23,6 +24,7 @@ export default function RootLayout({
           {children}
         </body>
       </UserProvider>
+      <GoogleTagManager gtmId="GTM-W7L7N7J" />
     </html>
   );
 }
